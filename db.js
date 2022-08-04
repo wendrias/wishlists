@@ -1,5 +1,6 @@
 const mysql = require('mysql2');
 require('dotenv').config();
+const queries = require('./queries');
 
 const db = mysql.createConnection({
     user: "root",
@@ -9,7 +10,8 @@ const db = mysql.createConnection({
     port: 3306,
 })
 
-const db_connection = db.connect(function(err) {
+// const db_connection = 
+db.connect(function(err) {
     if (err) {
         throw err;
     } else {
@@ -17,4 +19,11 @@ const db_connection = db.connect(function(err) {
     }
 });
 
-exports.db = db_connection;
+// db.query(queries.get_user('karen'), (err, result) => {
+//     if (err) throw err;
+//     console.log(result);
+// })
+
+// queries.test();
+
+module.exports = db;

@@ -1,6 +1,12 @@
 const mysql = require('mysql2');
 const db_conn = require('./db');
 
+
+//register
+const add_user = (username, pwd, full_name) => {
+    return "INSERT INTO users (username,password,full_name) VALUES ('" + username + "', '" + pwd + "', '" + full_name + "');";
+}
+
 // get one or all users
 const get_user = (user) => {
     return "SELECT * FROM users WHERE username = '" + user + "';";
@@ -15,9 +21,6 @@ const get_friends = (user) => {
     return "SELECT from_user FROM friend WHERE to_user= \'" + user + "\' AND status = \'friends\' UNION SELECT to_user FROM friends WHERE from_user= \'" + user + "\' AND status = \'friends\';";
 }
 
-exports.get_friends = get_friends();
-console.log(get_friends("karen"));
-
 //get wishlist of user
 const get_wishlist = (user) => {
     return "SELECT * FROM list_items WHERE user = \'" + user + "\';";
@@ -25,7 +28,7 @@ const get_wishlist = (user) => {
 
 //add to wishlist
 const add_item = (item_name, url, user) => {
-    return "INSERT INTO list_items (item_name,url,bought,user) VALUES ('" + item_name + "', + " + url + " +, 'no', '" + user + "');";
+    return "INSERT INTO list_items (item_name,url,bought,user) VALUES ('" + item_name + "', " + url + ", 'no', '" + user + "');";
 }
 
 //remove from wishlist
@@ -79,6 +82,9 @@ const remove_friend = (from_user, to_user) => {
 const test = () => {
     console.log('queries accessed!');
 }
+
+module.exports = { test, get_user, add_user };
+
 
 // friend request handler
 // const handle_friend_req = (action, from_user, to_user) => {
